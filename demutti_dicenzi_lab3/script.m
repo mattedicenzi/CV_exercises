@@ -37,16 +37,49 @@ greyImg1 = rgb2gray(img1);
 greyImg1_conv1 = conv2(greyImg1, laplacian1, 'same');
 greyImg1_conv2 = conv2(greyImg1, laplacian2, 'same');
 
-figure, imagesc(greyImg1_conv1), colormap gray,
+figure,subplot(2,1,1), imagesc(greyImg1_conv1), colormap gray,
 title("Boccadasse convolved with sd = " + sd1 + " LoG filter")
 
-figure, imagesc(greyImg1_conv2), colormap gray,
+subplot(2,1,2), imagesc(greyImg1_conv2), colormap gray,
 title("Boccadasse convolved with sd = " + sd2 + " LoG filter")
 
 ZC1 = detectZeroCrossings(greyImg1_conv1, 20);
-figure, imagesc(~ZC1), colormap gray
 ZC2 = detectZeroCrossings(greyImg1_conv2);
-figure, imagesc(~ZC2), colormap gray
+BW = edge(greyImg1, 'log');
 
-% BW = edge(greyImg1, 'log');
-% figure, imagesc(BW), colormap gray
+%display result images
+figure,subplot(2,1,1), imagesc(~ZC1), colormap gray
+title("edge detection of boccadasse (LoG filter with sd = "+sd1+")")
+subplot(2,1,2),imagesc(~BW), colormap gray
+title('edge detected with function edge()')
+
+figure,subplot(2,1,1), imagesc(~ZC2), colormap gray
+title("edge detection of boccadasse (LoG filter with sd = "+sd2+")")
+subplot(2,1,2),imagesc(~BW), colormap gray
+title('edge detected with function edge()')
+
+%% Exercise 2
+img1=imread('highway1.jpg','jpg');
+img1_gray=double(rgb2gray(img1));
+img2=imread('highway2.jpg','jpg');
+img2_gray=double(rgb2gray(img2));
+
+%edge detection
+BW1= edge(img1_gray,'sobel');
+BW2= edge(img2_gray,'sobel');
+
+%Hough transform
+[H1,T1,R1]=hough(BW1);
+[H2,T2,R2]=hough(BW2);
+
+%figure,subplot(2,1,1),imagesc(H1),colormap pink,title('Hough transform matrix of highway1.jpg');
+%subplot(2,1,2),imagesc(H2),colormap pink,title('Hough transform matrix of highway2.jpg');
+
+%Identify peaks in Hough transform
+P1  = houghpeaks(H1,5,'NHoodSize',[21 21]); %5 maximum number of peaks, as suggested by the text
+P2  = houghpeaks(H2,4,'NHoodSize',[21 21]); %4 as suggested by the text
+
+%img1
+computeStraightLines(BW1,P1,T1,R1,img1);
+computeStraightLines(BW2,P2,T2,R2,img2);
+
