@@ -1,6 +1,7 @@
 %Dicenzi Matteo
 %Demutti Marco
 function computeStraightLines(BW,P,T,R,img)
+
 [rr,cc]=size(img);
 figure,subplot(2,1,1),imagesc(BW),title('The straight lines'),hold on
 
