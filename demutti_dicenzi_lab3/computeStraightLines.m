@@ -17,7 +17,7 @@ for k=1:length(P)
 end
 
 %Find line segments and plot them
-lines = houghlines(BW,T,R,P,'FillGap',10,'MinLength',40);
+lines = houghlines(BW,T,R,P,'FillGap',10,'MinLength',30);
 subplot(2,1,2),imshow(img),title('line segments'), hold on
 for k = 1:length(lines)
    xy = [lines(k).point1; lines(k).point2];
