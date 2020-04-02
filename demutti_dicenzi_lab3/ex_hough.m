@@ -45,7 +45,7 @@ end
 
 %%%Find line segments and plot them
 lines = houghlines(BW,T,R,P,'FillGap',10,'MinLength',30);
-figure, imshow(im), hold on
+figure, i(im), hold on
 max_len = 0;
 for k = 1:length(lines)
    xy = [lines(k).point1; lines(k).point2];

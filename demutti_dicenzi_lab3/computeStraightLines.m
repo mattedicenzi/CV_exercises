@@ -3,7 +3,8 @@
 function computeStraightLines(BW,P,T,R,img,fillGap,minLength)
 
 [rr,cc]=size(img);
-figure,subplot(2,1,1),imagesc(BW),title('The straight lines'),hold on
+figure,subplot(2,1,1),imagesc(BW),title("Straight lines with fillgap = "+fillGap+" and minLength = "+ minLength),
+hold on
 
 for k=1:length(P)
     if T(P(k,2))>-45 && T(P(k,2))<45
@@ -19,7 +20,8 @@ end
 
 %Find line segments and plot them
 lines = houghlines(BW,T,R,P,'FillGap',fillGap,'MinLength',minLength);
-subplot(2,1,2),imshow(img),title('line segments'), hold on
+subplot(2,1,2),imshow(uint8(img)),title("Line segments with fillgap = "+fillGap+" and minLength = "+ minLength),
+hold on
 for k = 1:length(lines)
    xy = [lines(k).point1; lines(k).point2];
    plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
