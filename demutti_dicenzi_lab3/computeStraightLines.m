@@ -1,5 +1,12 @@
-%Dicenzi Matteo
-%Demutti Marco
+% Marco Demutti
+% 4389233
+% Matteo Dicenzi
+% 4342944
+
+% The function finds and displays the straight lines in an image
+% Input: edge map BW, peaks matrix P, theta T, rho R, grayscale image, and
+% parameters for 'houghlines' function
+
 function computeStraightLines(BW,P,T,R,img,fillGap,minLength)
 
 [rr,cc]=size(img);
@@ -18,7 +25,7 @@ for k=1:length(P)
     end
 end
 
-%Find line segments and plot them
+% Find line segments and plot them
 lines = houghlines(BW,T,R,P,'FillGap',fillGap,'MinLength',minLength);
 subplot(2,1,2),imshow(uint8(img)),title("Line segments with fillgap = "+fillGap+" and minLength = "+ minLength),
 hold on
