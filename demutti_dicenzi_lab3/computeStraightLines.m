@@ -1,6 +1,6 @@
 %Dicenzi Matteo
 %Demutti Marco
-function computeStraightLines(BW,P,T,R,img)
+function computeStraightLines(BW,P,T,R,img,fillGap,minLength)
 
 [rr,cc]=size(img);
 figure,subplot(2,1,1),imagesc(BW),title('The straight lines'),hold on
@@ -18,7 +18,7 @@ for k=1:length(P)
 end
 
 %Find line segments and plot them
-lines = houghlines(BW,T,R,P,'FillGap',10,'MinLength',30);
+lines = houghlines(BW,T,R,P,'FillGap',fillGap,'MinLength',minLength);
 subplot(2,1,2),imshow(img),title('line segments'), hold on
 for k = 1:length(lines)
    xy = [lines(k).point1; lines(k).point2];

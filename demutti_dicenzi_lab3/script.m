@@ -157,8 +157,37 @@ title('Hough transform matrix of highway2.jpg');
 P1  = houghpeaks(H1,4); %5 maximum number of peaks, as suggested by the text
 P2  = houghpeaks(H2,5,'NHoodSize',[21 21]); %4 maximum number of peaks, as suggested by the text
 
-% Find straight lines in img 1
-computeStraightLines(BW1,P1,T1,R1,img1);
-% Find straight lines in img 2
-computeStraightLines(BW2,P2,T2,R2,img2);
+%define parameters that will be used in houghlines function, which is inside
+%computeStraightLines function
+houghlinesParams=[10,30]; %fillGap, minLength
 
+% Find straight lines in img 1
+computeStraightLines(BW1,P1,T1,R1,img1,houghlinesParams(1),houghlinesParams(2));
+
+% Find straight lines in img 2
+computeStraightLines(BW2,P2,T2,R2,img2,houghlinesParams(1),houghlinesParams(2));
+
+
+%let's apply again the same procedure but with different parameters to see
+%the results
+P1  = houghpeaks(H1,10); %this time we look for 10 peaks at least
+houghlinesParams=[15,30]; %fillGap, minLength
+computeStraightLines(BW1,P1,T1,R1,img1,houghlinesParams(1),houghlinesParams(2));
+
+P1  = houghpeaks(H1,2);
+houghlinesParams=[15,30]; %fillGap, minLength
+computeStraightLines(BW1,P1,T1,R1,img1,houghlinesParams(1),houghlinesParams(2));
+
+
+%again same procedure applied to image2
+P2  = houghpeaks(H2,5,'NHoodSize',[5 5]); %4 maximum number of peaks, as suggested by the text
+houghlinesParams=[10,30]; %fillGap, minLength
+computeStraightLines(BW2,P2,T2,R2,img2,houghlinesParams(1),houghlinesParams(2));
+
+P2  = houghpeaks(H2,10,'NHoodSize',[21 21]); %4 maximum number of peaks, as suggested by the text
+houghlinesParams=[5,30]; %fillGap, minLength
+computeStraightLines(BW2,P2,T2,R2,img2,houghlinesParams(1),houghlinesParams(2));
+
+P2  = houghpeaks(H2,2,'NHoodSize',[21 21]); %4 maximum number of peaks, as suggested by the text
+houghlinesParams=[10,30]; %fillGap, minLength
+computeStraightLines(BW2,P2,T2,R2,img2,houghlinesParams(1),houghlinesParams(2));
