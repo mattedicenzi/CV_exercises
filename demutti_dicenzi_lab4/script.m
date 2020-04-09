@@ -65,3 +65,41 @@ segmentedImage1 = doSegmentation(img1_Hue, minThr, maxThr);
 figure, imagesc(segmentedImage1),colormap gray
 
 plotSegCentroidBoundaryBox(segmentedImage1);
+
+%% Exercise 2
+img=imread('sunflowers.png');
+%figure,imagesc(img),colormap gray
+sigma=1;
+sigmaIncrease=1.5;
+numbOfScale=10;
+radius=10;
+
+[scale_space,radii]=computeScale(img,sigma,sigmaIncrease,numbOfScale);
+
+ssSunflower1 = scale_space(386,458,:);
+ssSunflower2 = scale_space(361,166,:);
+
+figure,subplot(2,1,1),plot(squeeze(ssSunflower1),'*-')
+title('Laplacian response for sunflower 1')
+
+subplot(2,1,2),plot(squeeze(ssSunflower2),'*-');
+title('Laplacian response for sunflower 2')
+
+figure,imagesc(img),colormap gray,title('Image 1 with focus on sunflowers')
+hold on
+plot(458,386,'r*');
+plot(166,361,'r*');
+
+[~,val1]=max(ssSunflower1);
+% show_all_circles(img, 458, 386, 1.41*val, 'r', 1),
+figure,imagesc(img),colormap gray,hold on,title('Characteristic scale values')
+%rectangle('Position',[458-1.41*val 386-1.41*val 2*1.41*val 2*1.41*val],'EdgeColor',[1,0,0],'lineWidth',2); %versione nostra
+rectangle('Position',[420 340 90 75],'EdgeColor',[1,0,0],'lineWidth',2); %versione foto lab prof
+
+[~,val2]=max(ssSunflower2);
+rectangle('Position',[140 335 50 50],'EdgeColor',[0,0,1],'lineWidth',2);
+
+pixelSize1=ceil(sqrt(2)*val1);
+pixelSize2=ceil(sqrt(2)*val2);
+text(400,100, "pixel value = "+pixelSize1,'Color','red','FontSize',15);
+text(100,100, "pixel value = "+pixelSize2,'Color','blue','FontSize',15);
