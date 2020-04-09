@@ -1,10 +1,12 @@
-function plotSegCentroidBoundaryBox(segmentedImage)
+function plotSegCentroidBoundaryBox(segmentedImage, image_rgb, imageTitle)
+
+figure, imagesc(segmentedImage),colormap gray, 
+title("Segmented " + imageTitle), hold on
 
 % Find connected components (blobs).
 labeledImage = logical(segmentedImage);
 
 props = regionprops(labeledImage, 'Area', 'Centroid', 'BoundingBox');
-hold on;
 
 % Get all the centroids.
 centroids = [props.Centroid];
@@ -16,6 +18,11 @@ allAreas = [props.Area];
 [~, indexOfLargest] = max(allAreas);
 
 % Plot centroid and bounding box
+plot(allXCentroids(indexOfLargest), allYCentroids(indexOfLargest), '*r');
+rectangle('Position',(props(indexOfLargest).BoundingBox),'EdgeColor',[1,0,0],'LineWidth',2);
+
+% Plot centroid and bounding box on RGB image
+figure, imshow(image_rgb), title("Color " + imageTitle), hold on
 plot(allXCentroids(indexOfLargest), allYCentroids(indexOfLargest), '*r');
 rectangle('Position',(props(indexOfLargest).BoundingBox),'EdgeColor',[1,0,0],'LineWidth',2);
 

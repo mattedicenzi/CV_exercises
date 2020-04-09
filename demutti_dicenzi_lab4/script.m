@@ -50,21 +50,45 @@ plotRGBandHSV(img4_RGB_channels, img4_HSV_channels, "Image 4");
 plotRGBandHSV(img5_RGB_channels, img5_HSV_channels, "Image 5");
 plotRGBandHSV(img6_RGB_channels, img6_HSV_channels, "Image 6");
 
-% Compute mean value and standard deviation in area [360:420,550:650] of 
-% image 1 for Hue component
+% Select dark car in image 1 for Hue component and display it
 img1_Hue = img1_HSV_channels{1};
-subimg1_Hue = img1_Hue(370:420,560:645);
-figure, imagesc(subimg1_Hue),colormap gray
+dark_car_Hue = img1_Hue(368:413,557:644);
+figure, imagesc(dark_car_Hue), colormap gray, title('Dark car');
 
-mean_subimg1_Hue = mean2(subimg1_Hue);
-stdev_subimg1_Hue = std2(subimg1_Hue);
-minThr = mean_subimg1_Hue - 0.5*stdev_subimg1_Hue;
-maxThr = mean_subimg1_Hue + 0.5*stdev_subimg1_Hue;
-segmentedImage1 = doSegmentation(img1_Hue, minThr, maxThr);
+% Image 1: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+segmentedImage1 = doSegmentation(img1_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage1, img1_rgb, 'Image 1 dark car');
 
-figure, imagesc(segmentedImage1),colormap gray
+% Image 2: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+img2_Hue = img2_HSV_channels{1};
+segmentedImage2 = doSegmentation(img2_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage2, img2_rgb, 'Image 2 dark car');
 
-plotSegCentroidBoundaryBox(segmentedImage1);
+% Image 3: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+img3_Hue = img3_HSV_channels{1};
+segmentedImage3 = doSegmentation(img3_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage3, img3_rgb, 'Image 3 dark car');
+
+% Image 4: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+img4_Hue = img4_HSV_channels{1};
+segmentedImage4 = doSegmentation(img4_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage4, img4_rgb, 'Image 4 dark car');
+
+% Image 5: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+img5_Hue = img5_HSV_channels{1};
+segmentedImage5 = doSegmentation(img5_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage5, img5_rgb, 'Image 5 dark car');
+
+% Image 6: segment dark car and display centroid and bounding box in the 
+% binary image and in the color image
+img6_Hue = img6_HSV_channels{1};
+segmentedImage6 = doSegmentation(img6_Hue, dark_car_Hue);
+plotSegCentroidBoundaryBox(segmentedImage6, img6_rgb, 'Image 6 dark car');
 
 %% Exercise 2
 img=imread('sunflowers.png');
