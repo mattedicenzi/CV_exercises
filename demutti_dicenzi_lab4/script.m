@@ -54,6 +54,7 @@ plotRGBandHSV(img6_RGB_channels, img6_HSV_channels, "Image 6");
 img1_Hue = img1_HSV_channels{1};
 dark_car_Hue = img1_Hue(368:413,557:644);
 figure, imagesc(dark_car_Hue), colormap gray, title('Dark car');
+
 % Compute minThr and maxThr as m-0.4*s, m+0.4*s
 mean_subimg_Hue = mean2(dark_car_Hue);
 stdev_subimg_Hue = std2(dark_car_Hue);
@@ -95,9 +96,48 @@ img6_Hue = img6_HSV_channels{1};
 segmentedImage6 = doSegmentation(img6_Hue, minThr, maxThr);
 plotSegCentroidBoundaryBox(segmentedImage6, img6_rgb, 'Image 6 dark car');
 
+%repeat steps for Red car
+
+red_car_Hue=img1_Hue(352:429,678:784);
+figure, imagesc(red_car_Hue), colormap gray, title('Red car');
+
+%hp values suggested by text
+minThr = 0.97;
+maxThr = 1;
+
+% computation of different values of treshold
+mean_subimg1_Hue2 = mean2(red_car_Hue);
+stdev_subimg1_Hue2 = std2(red_car_Hue);
+minThr2 = mean_subimg1_Hue2 - stdev_subimg1_Hue2;
+maxThr2 = mean_subimg1_Hue2 + stdev_subimg1_Hue2;
+
+% Image 1: segment red car and display centroid and bounding box in the 
+% binary image and in the color image
+segmentedImage1 = doSegmentation(img1_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage1, img1_rgb, 'Image 1 red car');
+
+%repeat using differen treshold values
+segmentedImage1 = doSegmentation(img1_Hue, minThr2, maxThr2);
+plotSegCentroidBoundaryBox(segmentedImage1, img1_rgb, 'Image 1 red car, computed with different treshold values');
+
+%repeat procedure for all the other images
+segmentedImage2 = doSegmentation(img2_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage2, img2_rgb, 'Image 2 red car');
+
+segmentedImage3 = doSegmentation(img3_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage3, img3_rgb, 'Image 3 red car');
+
+segmentedImage4 = doSegmentation(img4_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage4, img4_rgb, 'Image 4 red car');
+
+segmentedImage5 = doSegmentation(img5_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage5, img5_rgb, 'Image 5 red car');
+
+segmentedImage6 = doSegmentation(img6_Hue, minThr, maxThr);
+plotSegCentroidBoundaryBox(segmentedImage6, img6_rgb, 'Image 6 red car');
+
 %% Exercise 2
 img=imread('sunflowers.png');
-%figure,imagesc(img),colormap gray
 sigma=1;
 sigmaIncrease=1.5;
 numbOfScale=10;
@@ -105,30 +145,29 @@ radius=10;
 
 [scale_space,radii]=computeScale(img,sigma,sigmaIncrease,numbOfScale);
 
+%focus on given sunflowers
 ssSunflower1 = scale_space(386,458,:);
 ssSunflower2 = scale_space(361,166,:);
 
-figure,subplot(2,1,1),plot(squeeze(ssSunflower1),'*-')
+figure,subplot(2,2,1),plot(squeeze(ssSunflower1),'*-')
 title('Laplacian response for sunflower 1')
 
-subplot(2,1,2),plot(squeeze(ssSunflower2),'*-');
+subplot(2,2,2),plot(squeeze(ssSunflower2),'*-');
 title('Laplacian response for sunflower 2')
 
-figure,imagesc(img),colormap gray,title('Image 1 with focus on sunflowers')
-hold on
-plot(458,386,'r*');
-plot(166,361,'r*');
+[~,val1]=max(ssSunflower1); %characteristic scale
+%Compute characteristic scale value in pixels for the first sunflower
+pixelSize1=ceil(sqrt(2)*val1);
 
-[~,val1]=max(ssSunflower1);
-% show_all_circles(img, 458, 386, 1.41*val, 'r', 1),
-figure,imagesc(img),colormap gray,hold on,title('Characteristic scale values')
-%rectangle('Position',[458-1.41*val 386-1.41*val 2*1.41*val 2*1.41*val],'EdgeColor',[1,0,0],'lineWidth',2); %versione nostra
-rectangle('Position',[420 340 90 75],'EdgeColor',[1,0,0],'lineWidth',2); %versione foto lab prof
+subplot(2,2,3),imagesc(img),colormap gray,hold on,
+title("evidencing sunflower 1 with characteristic scale pixel value = "+pixelSize1);
+rectangle('Position',[420 340 90 75],'EdgeColor',[1,0,0],'lineWidth',2);
 
+%repeat for the other sunflower
 [~,val2]=max(ssSunflower2);
+pixelSize2=ceil(sqrt(2)*val2);
+
+subplot(2,2,4),imagesc(img),colormap gray,hold on
+title("evidencing sunflower 2 with characteristic scale pixel value = "+pixelSize2);
 rectangle('Position',[140 335 50 50],'EdgeColor',[0,0,1],'lineWidth',2);
 
-pixelSize1=ceil(sqrt(2)*val1);
-pixelSize2=ceil(sqrt(2)*val2);
-text(400,100, "pixel value = "+pixelSize1,'Color','red','FontSize',15);
-text(100,100, "pixel value = "+pixelSize2,'Color','blue','FontSize',15);

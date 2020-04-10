@@ -1,3 +1,6 @@
+%Demutti Marco
+%Dicenzi Matteo
+
 function segmentedImage = doSegmentation(imgHue, minThr, maxThr)
 
 [rr,cc] = size(imgHue);
