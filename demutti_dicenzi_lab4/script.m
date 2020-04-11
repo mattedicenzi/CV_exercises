@@ -157,17 +157,19 @@ title('Laplacian response for sunflower 2')
 
 [~,val1]=max(ssSunflower1); %characteristic scale
 %Compute characteristic scale value in pixels for the first sunflower
-pixelSize1=ceil(sqrt(2)*val1);
+pixelSize1=ceil(sqrt(2)*radii(val1));
 
 subplot(2,2,3),imagesc(img),colormap gray,hold on,
-title("evidencing sunflower 1 with characteristic scale pixel value = "+pixelSize1);
-rectangle('Position',[420 340 90 75],'EdgeColor',[1,0,0],'lineWidth',2);
+show_all_circles(img, 458, 386,pixelSize1)
+title("evidencing sunflower 1 with characteristic scale pixel value = "+pixelSize1)
+plot(458,386,'r*');
 
 %repeat for the other sunflower
 [~,val2]=max(ssSunflower2);
-pixelSize2=ceil(sqrt(2)*val2);
+pixelSize2=ceil(sqrt(2)*radii(val2));
 
 subplot(2,2,4),imagesc(img),colormap gray,hold on
+show_all_circles(img, 166, 361,pixelSize2)
 title("evidencing sunflower 2 with characteristic scale pixel value = "+pixelSize2);
-rectangle('Position',[140 335 50 50],'EdgeColor',[0,0,1],'lineWidth',2);
+plot(166,361,'r*');
 
