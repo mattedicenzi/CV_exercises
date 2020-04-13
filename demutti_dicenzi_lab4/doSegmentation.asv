@@ -2,11 +2,7 @@
 % Dicenzi Matteo
 
 % The function carries out the segmentation of the Hue component of a given
-% image in the range (minThr, maxThr).
-
-% Inputs: Hue component of the image, minimum value of the range, max value
-% of the range
-% Output: binary segmented image
+% image
 
 function segmentedImage = doSegmentation(imgHue, minThr, maxThr)
 

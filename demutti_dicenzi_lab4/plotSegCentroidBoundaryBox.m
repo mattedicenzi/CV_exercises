@@ -1,5 +1,11 @@
-%Demutti Marco
-%Dicenzi Matteo
+% Demutti Marco
+% Dicenzi Matteo
+
+% The function displays the relative centroid and bounding box both on the
+% segmented image, and on the color image.
+
+% Inputs: segmented image, RGB color image (a title for the image to be 
+% displayed)
 
 function plotSegCentroidBoundaryBox(segmentedImage, image_rgb, imageTitle)
 

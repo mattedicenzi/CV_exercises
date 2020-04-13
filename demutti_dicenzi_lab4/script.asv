@@ -18,13 +18,13 @@ img5_rgb=imread('ur_c_s_03a_01_L_0380.png', 'png');
 img6_rgb=imread('ur_c_s_03a_01_L_0381.png', 'png');
 
 % Display all images in greyscale
-figure,subplot(2,3,6)
-subplot(2,3,1),imagesc(rgb2gray(img1_rgb)),colormap gray,title('Image 1 grayscale')
-subplot(2,3,2),imagesc(rgb2gray(img2_rgb)),colormap gray,title('Image 2 grayscale')
-subplot(2,3,3),imagesc(rgb2gray(img3_rgb)),colormap gray,title('Image 3 grayscale')
-subplot(2,3,4),imagesc(rgb2gray(img4_rgb)),colormap gray,title('Image 4 grayscale')
-subplot(2,3,5),imagesc(rgb2gray(img5_rgb)),colormap gray,title('Image 5 grayscale')
-subplot(2,3,6),imagesc(rgb2gray(img6_rgb)),colormap gray,title('Image 6 grayscale')
+figure,subplot(236)
+subplot(231),imagesc(rgb2gray(img1_rgb)),colormap gray,title('Image 1 grayscale')
+subplot(232),imagesc(rgb2gray(img2_rgb)),colormap gray,title('Image 2 grayscale')
+subplot(233),imagesc(rgb2gray(img3_rgb)),colormap gray,title('Image 3 grayscale')
+subplot(234),imagesc(rgb2gray(img4_rgb)),colormap gray,title('Image 4 grayscale')
+subplot(235),imagesc(rgb2gray(img5_rgb)),colormap gray,title('Image 5 grayscale')
+subplot(236),imagesc(rgb2gray(img6_rgb)),colormap gray,title('Image 6 grayscale')
 
 % Convert RGB to HSV
 img1_hsv=rgb2hsv(img1_rgb);
@@ -137,14 +137,14 @@ plotSegCentroidBoundaryBox(segmentedImage6, img6_rgb, 'Image 6 red car');
 
 %% Exercise 2
 img=imread('sunflowers.png');
-start_sigma = 1;
-sigmaIncrease = 1.5;
-numbOfScale = 10;
-radius = 10;
+sigma=1;
+sigmaIncrease=1.5;
+numbOfScale=10;
+radius=10;
 
-[scale_space,radii] = computeScale(img,start_sigma,sigmaIncrease,numbOfScale);
+[scale_space,radii]=computeScale(img,sigma,sigmaIncrease,numbOfScale);
 
-% Focus on given sunflowers
+%focus on given sunflowers
 ssSunflower1 = scale_space(386,458,:);
 ssSunflower2 = scale_space(361,166,:);
 
@@ -154,21 +154,21 @@ title('Laplacian response for sunflower 1')
 subplot(2,2,2),plot(squeeze(ssSunflower2),'*-');
 title('Laplacian response for sunflower 2')
 
-[~,val1]=max(ssSunflower1); % characteristic scale
-% Compute characteristic scale value in pixels for the first sunflower
+[~,val1]=max(ssSunflower1); %characteristic scale
+%Compute characteristic scale value in pixels for the first sunflower
 pixelSize1=ceil(sqrt(2)*radii(val1));
 
 subplot(2,2,3),imagesc(img),colormap gray,hold on,
-show_all_circles(img, 458, 386, pixelSize1)
+show_all_circles(img, 458, 386,pixelSize1)
 title("evidencing sunflower 1 with characteristic scale pixel value = "+pixelSize1)
 plot(458,386,'r*');
 
-% Repeat for the other sunflower
+%repeat for the other sunflower
 [~,val2]=max(ssSunflower2);
 pixelSize2=ceil(sqrt(2)*radii(val2));
 
 subplot(2,2,4),imagesc(img),colormap gray,hold on
-show_all_circles(img, 166, 361, pixelSize2)
+show_all_circles(img, 166, 361,pixelSize2)
 title("evidencing sunflower 2 with characteristic scale pixel value = "+pixelSize2);
 plot(166,361,'r*');
 
