@@ -155,14 +155,15 @@ rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
 %% Exercise 2 - Harris corner detection
 
 img = double(imread('i235.png', 'png'));
+figure, imagesc(img), colormap gray, title('Image before detecting corners')
 
 % Compute and show x and y derivative of the image
 dx = [1 0 -1; 2 0 -2; 1 0 -1];
 dy = [1 2 1; 0  0  0; -1 -2 -1];
 Ix = conv2(img, dx, 'same');
 Iy = conv2(img, dy, 'same');
-figure, imagesc(Ix), colormap gray, title('x partial derivative of img')
-figure, imagesc(Iy), colormap gray, title('y partial derivative of img')
+figure, imagesc(Ix), colormap gray, title('x partial derivative of image')
+figure, imagesc(Iy), colormap gray, title('y partial derivative of image')
 
 % Compute products of derivatives at every pixel
 Ix2=Ix.*Ix; Iy2=Iy.*Iy; Ixy=Ix.*Iy;
