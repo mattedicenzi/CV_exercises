@@ -1,11 +1,13 @@
 %% Lab 5 - NCC-based segmentation and Harris corner detection
-%Dicenzi Matteo 4342944
-%Demutti Marco  4389233
+% Dicenzi Matteo 
+% 4342944
+% Demutti Marco  
+% 4389233
 
 close all;
 clear;
 
-%% Exercise 1: NCC-based segmentation
+%% Exercise 1 - NCC-based segmentation
 
 % Read all 6 RGB images
 img1_rgb = imread('ur_c_s_03a_01_L_0376.png', 'png');
@@ -150,4 +152,66 @@ rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
 
 
 
-%% Exercise 2: Harris corner detection
+%% Exercise 2 - Harris corner detection
+
+img = double(imread('i235.png', 'png'));
+
+% Compute and show x and y derivative of the image
+dx = [1 0 -1; 2 0 -2; 1 0 -1];
+dy = [1 2 1; 0  0  0; -1 -2 -1];
+Ix = conv2(img, dx, 'same');
+Iy = conv2(img, dy, 'same');
+figure, imagesc(Ix), colormap gray, title('x partial derivative of img')
+figure, imagesc(Iy), colormap gray, title('y partial derivative of img')
+
+% Compute products of derivatives at every pixel
+Ix2=Ix.*Ix; Iy2=Iy.*Iy; Ixy=Ix.*Iy;
+
+% Compute the sum of products of  derivatives at each pixel
+g = fspecial('gaussian', 9, 1.2);
+figure, imagesc(g), colormap gray, title('Gaussian filter')
+Sx2 = conv2(Ix2, g, 'same'); Sy2 = conv2(Iy2, g, 'same'); Sxy = conv2(Ixy, g, 'same');
+
+% Corner detection
+[rr,cc]=size(Sx2);
+corner_reg = zeros(rr,cc);
+R_map = zeros(rr,cc); %R_map colorness map
+k = 0.05;
+
+for ii=1:rr
+    for jj=1:cc
+        % define at each pixel x,y the matrix M
+        M = [Sx2(ii,jj), Sxy(ii,jj); Sxy(ii,jj), Sy2(ii,jj)];
+        % compute the response of the detector at each pixel
+        R = det(M) - k*(trace(M).^2);
+        R_map(ii,jj) = R;
+    end
+end
+
+% Compute max value of R map
+M = max(R_map, [], 'all');
+
+% Threshold for the corner regions using M
+for ii=1:rr
+    for jj=1:cc
+        if R_map(ii,jj) > 0.3*M
+            corner_reg(ii,jj) = 1;
+        end
+    end
+end
+
+% Get the centroids of the blobs in the corner regions map
+props = regionprops(logical(corner_reg), 'Centroid');
+
+% Show the R score map and the corner regions
+figure, subplot(2,1,1), imagesc(R_map), colormap jet, title('R score map')
+subplot(2,1,2), imagesc(corner_reg.*img), colormap gray, title('Corner regions')
+
+% Show the detected corners overlapped to the image
+figure, imagesc(img), colormap gray, title('Image with detected corners'), 
+hold on
+for i=1:size(props,1)
+    xc=floor(props(i).Centroid(1));
+    yc=floor(props(i).Centroid(2));
+    plot(xc, yc, '*r');
+end
