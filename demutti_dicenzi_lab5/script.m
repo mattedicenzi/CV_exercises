@@ -27,9 +27,21 @@ img6_gray = rgb2gray(img6_rgb);
 
 %select area of red car
 red_car  = img1_gray(354:432, 685:775);
+dark_car = img1_gray(345:433, 541:663);
 
-figure,imagesc(red_car),colormap gray, title ('Red Car Template')
+larger_dark_car   = img1_gray(330:448, 526:678);
+smaller_dark_car = img1_gray(360:418, 556:648);
 
+
+figure
+subplot(2,1,1), imagesc(red_car),  colormap gray, title ('Red Car Template')
+subplot(2,1,2), imagesc(dark_car), colormap gray, title ('Dark Car Template')
+figure
+subplot(2,1,1), imagesc(larger_dark_car),  colormap gray
+title ('smaller template for dark car')
+subplot(2,1,2), imagesc(smaller_dark_car), colormap gray
+title ('larger  template for dark car')
+ 
 %NCC-based segmentation
 C1 = normxcorr2(red_car, img1_gray);
 C2 = normxcorr2(red_car, img2_gray);
@@ -150,6 +162,7 @@ subplot(2,3,6), imagesc(img6_rgb), title('Image 6 '), hold on
 plot(y6, x6,'r*');
 rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
 
+%repeat for dark car
 
 
 %% Exercise 2 - Harris corner detection
