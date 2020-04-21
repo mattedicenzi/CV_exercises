@@ -35,3 +35,4 @@ figure,imagesc(TM1),colormap gray
 C = normxcorr2(T, img);%Normalized 2-D cross-correlation
 figure,imagesc(C),colormap gray
 
+max_C1 = max(C(:));

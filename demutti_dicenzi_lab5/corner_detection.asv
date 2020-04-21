@@ -24,7 +24,10 @@ M = max(R_map, [], 'all');
 % Threshold for the corner regions using M
 for ii=1:rr
     for jj=1:cc
-        corner_reg(ii,jj) = (R_map(ii,jj) > 0.3 * M);
+        if R_map(ii,jj) > 0.3*M
+            corner_reg(ii,jj) = 1;
+        end
+        corner_reg(ii,jj) = R_map(ii,jj) > 0.3 * M)
     end
 end
 

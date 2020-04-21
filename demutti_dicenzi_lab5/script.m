@@ -17,20 +17,29 @@ img4_rgb = imread('ur_c_s_03a_01_L_0379.png', 'png');
 img5_rgb = imread('ur_c_s_03a_01_L_0380.png', 'png');
 img6_rgb = imread('ur_c_s_03a_01_L_0381.png', 'png');
 
+figure
+subplot(2,3,1), imagesc(img1_rgb), colormap gray, title ('image 1')
+subplot(2,3,2), imagesc(img2_rgb), colormap gray, title ('image 2')
+subplot(2,3,3), imagesc(img3_rgb), colormap gray, title ('image 3')
+subplot(2,3,4), imagesc(img4_rgb), colormap gray, title ('image 4')
+subplot(2,3,5), imagesc(img5_rgb), colormap gray, title ('image 5')
+subplot(2,3,6), imagesc(img6_rgb), colormap gray, title ('image 6')
+
 %gray conversion
 img1_gray = double(rgb2gray(img1_rgb));
-img2_gray = rgb2gray(img2_rgb);
-img3_gray = rgb2gray(img3_rgb);
-img4_gray = rgb2gray(img4_rgb);
-img5_gray = rgb2gray(img5_rgb);
-img6_gray = rgb2gray(img6_rgb);
+img2_gray = double(rgb2gray(img2_rgb));
+img3_gray = double(rgb2gray(img3_rgb));
+img4_gray = double(rgb2gray(img4_rgb));
+img5_gray = double(rgb2gray(img5_rgb));
+img6_gray = double(rgb2gray(img6_rgb));
 
 %select area of red car
-red_car  = img1_gray(354:432, 685:775);
+red_car  = img1_gray(362:420, 690:769);
+%(345:441,675,785)
 dark_car = img1_gray(345:433, 541:663);
 
 larger_dark_car   = img1_gray(330:448, 526:678);
-smaller_dark_car = img1_gray(360:418, 556:648);
+smaller_dark_car  = img1_gray(360:418, 556:648);
 
 
 figure
@@ -68,102 +77,52 @@ max_C5 = max(C5(:));
 max_C6 = max(C6(:));
 
 %find indeces of maximum
-[x1, y1] = find(C1 == max_C1 );
-[x2, y2] = find(C2 == max_C2 );
-[x3, y3] = find(C3 == max_C3 );
-[x4, y4] = find(C4 == max_C4 );
-[x5, y5] = find(C5 == max_C5 );
-[x6, y6] = find(C6 == max_C6 );
+[y1, x1] = find(C1 == max_C1 );
+[y2, x2] = find(C2 == max_C2 );
+[y3, x3] = find(C3 == max_C3 );
+[y4, x4] = find(C4 == max_C4 );
+[y5, x5] = find(C5 == max_C5 );
+[y6, x6] = find(C6 == max_C6 );
 
-% Display all images in greyscale with red car in box and with focus on
-% indeces of maximum
+%compute offset for each Ci, i=1,..,6
+y1_offSet = y1 - size(red_car,1);
+x1_offSet = x1 - size(red_car,2);
+y2_offSet = y2 - size(red_car,1);
+x2_offSet = x2 - size(red_car,2);
+y3_offSet = y3 - size(red_car,1);
+x3_offSet = x3 - size(red_car,2);
+y4_offSet = y4 - size(red_car,1);
+x4_offSet = x4 - size(red_car,2);
+y5_offSet = y5 - size(red_car,1);
+x5_offSet = x5 - size(red_car,2);
+y6_offSet = y6 - size(red_car,1);
+x6_offSet = x6 - size(red_car,2);
+
 figure
 subplot(2,3,1)
 imagesc(img1_rgb), title('Image 1 '), hold on
-plot(y1, x1,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
+plot(x1, y1,'r*');
+rectangle('Position',[x1_offSet, y1_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 subplot(2,3,2), imagesc(img2_rgb), title('Image 2 '), hold on
-plot(y2, x2,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
+plot(x2, y2,'r*');
+rectangle('Position',[x2_offSet, y2_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 subplot(2,3,3), imagesc(img3_rgb), title('Image 3 '), hold on
-plot(y3, x3,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
+plot(x3, y3,'r*');
+rectangle('Position',[x3_offSet, y3_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 subplot(2,3,4), imagesc(img4_rgb), title('Image 4 '), hold on
-plot(y4, x4,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
+plot(x4, y4,'r*');
+rectangle('Position',[x4_offSet, y4_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 subplot(2,3,5), imagesc(img5_rgb), title('Image 5 '), hold on
-plot(y5, x5,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
+plot(x5, y5,'r*');
+rectangle('Position',[x5_offSet, y5_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 subplot(2,3,6), imagesc(img6_rgb), title('Image 6 '), hold on
-plot(y6, x6,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-% QUESTO FUNZIONA
-% MEGLIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-%remove mean value
-red_car = red_car - mean2(red_car);
-
-%two-dimensional correlation
-res1 = filter2(red_car, img1_gray,'same');
-res2 = filter2(red_car, img2_gray,'same');
-res3 = filter2(red_car, img3_gray,'same');
-res4 = filter2(red_car, img4_gray,'same');
-res5 = filter2(red_car, img5_gray,'same');
-res6 = filter2(red_car, img6_gray,'same');
-
-%find indeces of maximum
-[x1, y1] = find(res1 == max(res1(:)));
-[x2, y2] = find(res2 == max(res2(:)));
-[x3, y3] = find(res3 == max(res3(:)));
-[x4, y4] = find(res4 == max(res4(:)));
-[x5, y5] = find(res5 == max(res5(:)));
-[x6, y6] = find(res6 == max(res6(:)));
-
-%show results
-figure
-subplot(2,3,1), imagesc(res1), colormap gray
-subplot(2,3,2), imagesc(res2), colormap gray
-subplot(2,3,3), imagesc(res3), colormap gray
-subplot(2,3,4), imagesc(res4), colormap gray
-subplot(2,3,5), imagesc(res5), colormap gray
-subplot(2,3,6), imagesc(res6), colormap gray
-
-% Display all images in greyscale with red car in box and with focus on
-% indeces of maximum
-figure
-subplot(2,3,1)
-imagesc(img1_rgb), title('Image 1 '), hold on
-plot(y1, x1,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-subplot(2,3,2), imagesc(img2_rgb), title('Image 2 '), hold on
-plot(y2, x2,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-subplot(2,3,3), imagesc(img3_rgb), title('Image 3 '), hold on
-plot(y3, x3,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-subplot(2,3,4), imagesc(img4_rgb), title('Image 4 '), hold on
-plot(y4, x4,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-subplot(2,3,5), imagesc(img5_rgb), title('Image 5 '), hold on
-plot(y5, x5,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-subplot(2,3,6), imagesc(img6_rgb), title('Image 6 '), hold on
-plot(y6, x6,'r*');
-rectangle('Position',[685, 354 ,90 , 78],'EdgeColor',[1,0,0]);
-
-%repeat for dark car
-
+plot(x6, y6,'r*');
+rectangle('Position',[x6_offSet, y6_offSet ,size(red_car,2) , size(red_car,1)],'EdgeColor',[1,0,0]);
 
 %% Exercise 2 - Harris corner detection
 
@@ -189,12 +148,13 @@ Sx2 = conv2(Ix2, g, 'same'); Sy2 = conv2(Iy2, g, 'same'); Sxy = conv2(Ixy, g, 's
 % Corner detection
 [R_map, corner_reg] = corner_detection(Sx2, Sxy, Sy2);
 
+% Show the R score map and the corner regions
+figure 
+subplot(2,1,1), imagesc(R_map), colormap jet, title('R score map')
+subplot(2,1,2), imagesc(corner_reg.*img), colormap gray, title('Corner regions')
+
 % Get the centroids of the blobs in the corner regions map
 props = regionprops(logical(corner_reg), 'Centroid');
-
-% Show the R score map and the corner regions
-figure, subplot(2,1,1), imagesc(R_map), colormap jet, title('R score map')
-subplot(2,1,2), imagesc(corner_reg.*img), colormap gray, title('Corner regions')
 
 % Show the detected corners overlapped to the image
 figure, imagesc(img), colormap gray, title('Image with detected corners'), 
