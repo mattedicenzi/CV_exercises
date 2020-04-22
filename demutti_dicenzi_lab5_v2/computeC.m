@@ -5,6 +5,11 @@ function Ci = computeC (template, imgi_gray, typeOfTemplate)
     Ci = cell(1,6);
     if(nargin == 2)
         Ci{1} = normxcorr2(template, imgi_gray{1});
+        Ci{2} = normxcorr2(template, imgi_gray{2});
+        Ci{3} = normxcorr2(template, imgi_gray{3});
+        Ci{4} = normxcorr2(template, imgi_gray{4});
+        Ci{5} = normxcorr2(template, imgi_gray{5});
+        Ci{6} = normxcorr2(template, imgi_gray{6});
     end
     
     if(nargin == 3)
@@ -15,19 +20,18 @@ function Ci = computeC (template, imgi_gray, typeOfTemplate)
     
         %NCC-based segmentation
         Ci{1} = normxcorr2(template, imgi_gray{1});
+        Ci{2} = normxcorr2(template, imgi_gray{2});
+        Ci{3} = normxcorr2(template, imgi_gray{3});
+        Ci{4} = normxcorr2(template, imgi_gray{4});
+        Ci{5} = normxcorr2(template, imgi_gray{5});
+        Ci{6} = normxcorr2(template, imgi_gray{6});
     
         format shortg,
         temp = clock;   
         secOfEnd = temp(6);
-        delay = secOfEnd - secOfStart;
-        disp("seconds of delay : "+ delay +" in case the Template is the " + typeOfTemplate);
+        delay = (secOfEnd - secOfStart)/6;
+        disp("Average seconds of delay : "+ delay +" in case the Template is the " + typeOfTemplate);
     end
-    
-    Ci{2} = normxcorr2(template, imgi_gray{2});
-    Ci{3} = normxcorr2(template, imgi_gray{3});
-    Ci{4} = normxcorr2(template, imgi_gray{4});
-    Ci{5} = normxcorr2(template, imgi_gray{5});
-    Ci{6} = normxcorr2(template, imgi_gray{6});
     
     %show NCC results
     figure
