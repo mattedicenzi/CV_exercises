@@ -9,7 +9,6 @@ clear;
 
 %% Exercise 1 - NCC-based segmentation
 
-
 % Read all 6 RGB images
 img1_rgb = imread('ur_c_s_03a_01_L_0376.png', 'png');
 img2_rgb = imread('ur_c_s_03a_01_L_0377.png', 'png');
@@ -46,12 +45,12 @@ larger_dark_car   = imgi_gray{1}(330:448, 526:678);
 smaller_dark_car  = imgi_gray{1}(360:418, 556:648);
 
 figure
-subplot(2,1,1), imagesc(red_car),  colormap gray, title ('Red Car Template')
-subplot(2,1,2), imagesc(dark_car), colormap gray, title ('Dark Car Template')
+subplot(1,2,1), imagesc(red_car),  colormap gray, title ('Red Car Template')
+subplot(1,2,2), imagesc(dark_car), colormap gray, title ('Dark Car Template')
 figure
-subplot(2,1,1), imagesc(larger_dark_car),  colormap gray
+subplot(1,2,1), imagesc(larger_dark_car),  colormap gray
 title ('smaller template for dark car')
-subplot(2,1,2), imagesc(smaller_dark_car), colormap gray
+subplot(1,2,2), imagesc(smaller_dark_car), colormap gray
 title ('larger  template for dark car')
  
 %NCC-based segmentation. Ci, i=1,..,6
@@ -84,8 +83,9 @@ dx = [1 0 -1; 2 0 -2; 1 0 -1];
 dy = [1 2 1; 0  0  0; -1 -2 -1];
 Ix = conv2(img, dx, 'same');
 Iy = conv2(img, dy, 'same');
-figure, imagesc(Ix), colormap gray, title('x partial derivative of image')
-figure, imagesc(Iy), colormap gray, title('y partial derivative of image')
+figure
+subplot(1,2,1),imagesc(Ix), colormap gray, title('x partial derivative of image')
+subplot(1,2,2),imagesc(Iy), colormap gray, title('y partial derivative of image')
 
 % Compute products of derivatives at every pixel
 Ix2=Ix.*Ix; Iy2=Iy.*Iy; Ixy=Ix.*Iy;
@@ -100,8 +100,8 @@ Sx2 = conv2(Ix2, g, 'same'); Sy2 = conv2(Iy2, g, 'same'); Sxy = conv2(Ixy, g, 's
 
 % Show the R score map and the corner regions
 figure 
-subplot(2,1,1), imagesc(R_map), colormap jet, title('R score map')
-subplot(2,1,2), imagesc(corner_reg.*img), colormap gray, title('Corner regions')
+subplot(1,2,1), imagesc(R_map), colormap jet, title('R score map')
+subplot(1,2,2), imagesc(corner_reg.*img), colormap gray, title('Corner regions')
 
 % Get the centroids of the blobs in the corner regions map
 props = regionprops(logical(corner_reg), 'Centroid');
