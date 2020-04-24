@@ -94,6 +94,10 @@ Ix2=Ix.*Ix; Iy2=Iy.*Iy; Ixy=Ix.*Iy;
 g = fspecial('gaussian', 9, 1.2);
 figure, imagesc(g), colormap gray, title('Gaussian filter')
 Sx2 = conv2(Ix2, g, 'same'); Sy2 = conv2(Iy2, g, 'same'); Sxy = conv2(Ixy, g, 'same');
+figure
+subplot(1,3,1),imagesc(Sx2),colormap gray, title('Square of partial derivative in x')
+subplot(1,3,2),imagesc(Sxy),colormap gray, title('Cross product of partial derivatives')
+subplot(1,3,3),imagesc(Sy2),colormap gray, title('Square of partial derivative in y')
 
 % Corner detection
 [R_map, corner_reg] = corner_detection(Sx2, Sxy, Sy2);
