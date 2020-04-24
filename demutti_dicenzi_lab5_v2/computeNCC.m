@@ -1,6 +1,6 @@
 %Dicenzi Matteo
 %Demutti Marco
-function Ci = computeC (template, imgi_gray, typeOfTemplate)
+function Ci = computeNCC (template, imgi_gray, typeOfTemplate)
     %Create cell
     Ci = cell(1,6);
     if(nargin == 2)

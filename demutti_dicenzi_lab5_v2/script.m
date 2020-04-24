@@ -54,22 +54,22 @@ subplot(1,2,2), imagesc(smaller_dark_car), colormap gray
 title ('larger  template for dark car')
  
 %NCC-based segmentation. Ci, i=1,..,6
-Ci = computeC (red_car, imgi_gray);
+Ci = computeNCC (red_car, imgi_gray);
 %Display results
 displayResults(Ci, red_car, imgi_gray);
 
 % Repeat steps for dark car
-Ci = computeC (dark_car, imgi_gray, "dark car");
+Ci = computeNCC (dark_car, imgi_gray, "dark car");
 %Display results
 displayResults(Ci, dark_car, imgi_gray);
 
 % Repeat steps for smaller dark car
-Ci = computeC (smaller_dark_car, imgi_gray,"smaller dark car");
+Ci = computeNCC (smaller_dark_car, imgi_gray,"smaller dark car");
 %Display results
 displayResults(Ci, smaller_dark_car, imgi_gray);
 
 % Repeat steps for larger dark car
-Ci = computeC (larger_dark_car, imgi_gray, "larger dark car");
+Ci = computeNCC (larger_dark_car, imgi_gray, "larger dark car");
 %Display results
 displayResults(Ci, larger_dark_car, imgi_gray);
 
