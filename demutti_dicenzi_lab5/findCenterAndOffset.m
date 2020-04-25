@@ -1,5 +1,6 @@
 %Dicenzi Matteo
 %Demutti Marco
+
 function [x_center, y_center, x_offSet, y_offSet] = findCenterAndOffset(C, template)
 
     max_C = max(C(:));
