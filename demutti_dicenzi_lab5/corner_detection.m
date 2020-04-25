@@ -1,6 +1,10 @@
 %Demutti Marco
 %Dicenzi Matteo
 
+%This function computes the cornerness map, and the corner region
+
+%Input: sum of products of derivatives in x, sum of products of derivatives
+%in x y, sum of products of derivative in y
 function [R_map, corner_reg] = corner_detection(Sx2, Sxy, Sy2)
 
 [rr,cc]=size(Sx2);

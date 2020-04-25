@@ -1,6 +1,11 @@
 %Dicenzi Matteo
 %Demutti Marco
 
+%The function displays all the six images with rectangles that highlight
+%the identified template
+
+% Inputs : NCC of the six images (cell), template, 6 images (cell)
+
 function displayResults(Ci, template, imgi)
     [x1_center, y1_center, x1_offSet, y1_offSet] = findCenterAndOffset(Ci{1}, template);
     [x2_center, y2_center, x2_offSet, y2_offSet] = findCenterAndOffset(Ci{2}, template);

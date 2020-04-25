@@ -1,5 +1,12 @@
 %Dicenzi Matteo
 %Demutti Marco
+
+%This function computes the NCC of the images provided and display the
+%results. If 3 input are given to computeNCC, it display the computational
+%time required to perform the NCC.
+
+%Input: template, 6 images (cell), a title of the template to be displayed
+
 function Ci = computeNCC (template, imgi_gray, typeOfTemplate)
     %Create cell
     Ci = cell(1,6);
