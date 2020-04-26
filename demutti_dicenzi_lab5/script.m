@@ -49,9 +49,9 @@ subplot(1,2,1), imagesc(red_car),  colormap gray, title ('Red Car Template')
 subplot(1,2,2), imagesc(dark_car), colormap gray, title ('Dark Car Template')
 figure
 subplot(1,2,1), imagesc(larger_dark_car),  colormap gray
-title ('smaller template for dark car')
+title ('larger template for dark car')
 subplot(1,2,2), imagesc(smaller_dark_car), colormap gray
-title ('larger  template for dark car')
+title ('smaller  template for dark car')
  
 %NCC-based segmentation. Ci, i=1,..,6
 Ci = computeNCC (red_car, imgi_gray);
