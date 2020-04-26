@@ -6,9 +6,10 @@
 %time required to perform the NCC.
 
 %Input: template, 6 images (cell), a title of the template to be displayed
+%Output: 6 score maps (cell)
 
 function Ci = computeNCC (template, imgi_gray, typeOfTemplate)
-    %Create cell
+    % Create cell
     Ci = cell(1,6);
     if(nargin == 2)
         Ci{1} = normxcorr2(template, imgi_gray{1});
@@ -20,12 +21,12 @@ function Ci = computeNCC (template, imgi_gray, typeOfTemplate)
     end
     
     if(nargin == 3)
-        %get current time
+        % get current time
         format shortg,
         temp = clock;
         secOfStart = temp(6); % take into account only seconds
     
-        %NCC-based segmentation
+        % NCC-based segmentation
         Ci{1} = normxcorr2(template, imgi_gray{1});
         Ci{2} = normxcorr2(template, imgi_gray{2});
         Ci{3} = normxcorr2(template, imgi_gray{3});
@@ -40,8 +41,8 @@ function Ci = computeNCC (template, imgi_gray, typeOfTemplate)
         disp("Average seconds of delay : "+ delay +" in case the Template is the " + typeOfTemplate);
     end
     
-    %show NCC results
-    figure
+    % show NCC results
+    figure,
     subplot(2,3,1), imagesc(Ci{1}), colormap gray, title ('NCC-based segmentation 1')
     subplot(2,3,2), imagesc(Ci{2}), colormap gray, title ('NCC-based segmentation 2')
     subplot(2,3,3), imagesc(Ci{3}), colormap gray, title ('NCC-based segmentation 3')

@@ -5,11 +5,12 @@
 
 %Input: sum of products of derivatives in x, sum of products of derivatives
 %in x y, sum of products of derivative in y
+%Output: R score map, corner regions
 function [R_map, corner_reg] = corner_detection(Sx2, Sxy, Sy2)
 
 [rr,cc]=size(Sx2);
 corner_reg = zeros(rr,cc);
-R_map = zeros(rr,cc); %R_map colorness map
+R_map = zeros(rr,cc);
 k = 0.05;
 
 for ii=1:rr

@@ -5,6 +5,8 @@
 %along with the (x,y) offset
 
 %Input : two normalized cross-correlation, template
+%Output: x coordinate of the center, y coordinate of the center, x
+%coordinate of the center, y coordinate of the center
 
 function [x_center, y_center, x_offSet, y_offSet] = findCenterAndOffset(C, template)
 

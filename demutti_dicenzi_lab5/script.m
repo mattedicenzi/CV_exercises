@@ -17,7 +17,7 @@ img4_rgb = imread('ur_c_s_03a_01_L_0379.png', 'png');
 img5_rgb = imread('ur_c_s_03a_01_L_0380.png', 'png');
 img6_rgb = imread('ur_c_s_03a_01_L_0381.png', 'png');
 
-figure
+figure,
 subplot(2,3,1), imagesc(img1_rgb), colormap gray, title ('image 1')
 subplot(2,3,2), imagesc(img2_rgb), colormap gray, title ('image 2')
 subplot(2,3,3), imagesc(img3_rgb), colormap gray, title ('image 3')
@@ -38,22 +38,21 @@ imgi_gray{6} = double(rgb2gray(img6_rgb));
 
 %select area of red car
 red_car  = imgi_gray{1}(362:420, 690:769);
-%(345:441,675,785)
 dark_car = imgi_gray{1}(345:433, 541:663);
 
 larger_dark_car   = imgi_gray{1}(330:448, 526:678);
 smaller_dark_car  = imgi_gray{1}(360:418, 556:648);
 
-figure
+figure,
 subplot(1,2,1), imagesc(red_car),  colormap gray, title ('Red Car Template')
 subplot(1,2,2), imagesc(dark_car), colormap gray, title ('Dark Car Template')
-figure
+figure,
 subplot(1,2,1), imagesc(larger_dark_car),  colormap gray
 title ('larger template for dark car')
 subplot(1,2,2), imagesc(smaller_dark_car), colormap gray
 title ('smaller  template for dark car')
  
-%NCC-based segmentation. Ci, i=1,..,6
+% NCC-based segmentation. Ci, i=1,..,6
 Ci = computeNCC (red_car, imgi_gray);
 %Display results
 displayResults(Ci, red_car, imgi_gray);
