@@ -5,15 +5,15 @@ function [F] = EightPointsAlgorithmN(P1, P2)
 [nP2, T2] = normalise2dpts(P2);
 
 % Construct matrix A
-A = zeros(size(P1,2), 9);
+A = zeros(size(nP1,2), 9);
 
-for i=1:size(P1,2)
+for i=1:size(nP1,2)
     
     % Extract the i-th point
-    x1 = P1(1, i);
-    y1 = P1(2, i);
-    x2 = P2(1, i);
-    y2 = P2(2, i);
+    x1 = nP1(1, i);
+    y1 = nP1(2, i);
+    x2 = nP2(1, i);
+    y2 = nP2(2, i);
     
     % Construct the i-th row
     A(i,1) = x2 * x1;
