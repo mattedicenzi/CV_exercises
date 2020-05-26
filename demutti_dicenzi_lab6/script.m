@@ -39,6 +39,17 @@ end
 % visualizeEpipolarLines(mire1, mire2, F1, P1, P2);
 % visualizeEpipolarLines(mire1, mire2, F2, P1, P2);
 
+[U,W,V] = svd(F2);
+
+left_ep_F2 = U(:,end);
+left_ep_F2_non_hom = [left_ep_F2(1)/left_ep_F2(3), left_ep_F2(2)/left_ep_F2(3)];
+
+right_ep_F2 = V(:,end);
+right_ep_F2_non_hom = [right_ep_F2(1)/right_ep_F2(3), right_ep_F2(2)/right_ep_F2(3)];
+
+figure, imshow(mire1), hold on;
+plot(left_ep_F2_non_hom, 's');
+
 %% 'Rubik' set of images
 
 % Load Rubik1 and Rubik2 images
