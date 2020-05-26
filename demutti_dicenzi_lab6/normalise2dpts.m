@@ -1,3 +1,6 @@
+%output: [normalize poiints,matrix T e T tilda]
+%procedure: same. however, when you reach F, this is normalized; so you have to DENORMALIZING it, by having a look at the formula in the slide;
+%
 function [newpts, T] = normalise2dpts(pts)
 
     if size(pts,1) ~= 3
