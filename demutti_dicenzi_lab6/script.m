@@ -36,13 +36,13 @@ for i=1:size(P1_mire_hom,2)
     constraintMireF2(i) = P2_mire_hom(:,i)' * F2_mire * P1_mire_hom(:,i);
 end
 
-% visualizeEpipolarLines(mire1, mire2, F1_mire, P1_mire, P2_mire);
-% visualizeEpipolarLines(mire1, mire2, F2_mire, P1_mire, P2_mire);
+visualizeEpipolarLines(mire1, mire2, F1_mire, P1_mire, P2_mire);
+visualizeEpipolarLines(mire1, mire2, F2_mire, P1_mire, P2_mire);
 
 [left_ep_cartesian_F2_mire, right_ep_cartesian_F2_mire] = computeLeftAndRightEpipoles(F2_mire);
-figure, imagesc(mire1), colormap gray;
-figure;
-plot(left_ep_cartesian_F2_mire(1), left_ep_cartesian_F2_mire(2), 's');
+% figure, imagesc(mire1), colormap gray;
+% figure;
+% plot(left_ep_cartesian_F2_mire(1), left_ep_cartesian_F2_mire(2), 's');
 
 %% 'Rubik' set of images
 
@@ -73,5 +73,5 @@ for i=1:size(P1_rubik_hom,2)
     constraintRubikF2(i) = P2_rubik_hom(:,i)' * F2_rubik * P1_rubik_hom(:,i);
 end
 
-% visualizeEpipolarLines(rubik1, rubik2, F1_rubik, P1_rubik, P2_rubik);
-% visualizeEpipolarLines(rubik1, rubik2, F2_rubik, P1_rubik, P2_rubik);
+visualizeEpipolarLines(rubik1, rubik2, F1_rubik, P1_rubik, P2_rubik);
+visualizeEpipolarLines(rubik1, rubik2, F2_rubik, P1_rubik, P2_rubik);
