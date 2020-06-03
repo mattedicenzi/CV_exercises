@@ -12,6 +12,7 @@ title('Left image');
 
 % Plot left epipole
 plot(ep1(1), ep1(2), 'x');
+set(gca, 'YDir','reverse');
 
 for i = 1 : size(pt1,1)
     
@@ -28,6 +29,7 @@ title('Right image');
 
 % Plot right epipole
 plot(ep2(1), ep2(2), 'x');
+set(gca, 'YDir','reverse');
 
 for i = 1 : size(pt1,1)
     
