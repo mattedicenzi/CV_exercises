@@ -1,4 +1,6 @@
 function [left_ep_cartesian, right_ep_cartesian] = computeLeftAndRightEpipoles(F)
+% function [left_ep_cartesian, right_ep_cartesian] = computeLeftAndRightEpipoles(F)
+% Compute left and right epipoles given matrix F
 
 % SVD decomposition of F
 [U,W,V] = svd(F);

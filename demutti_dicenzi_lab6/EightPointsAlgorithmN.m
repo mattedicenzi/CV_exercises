@@ -1,4 +1,6 @@
 function [F] = EightPointsAlgorithmN(P1, P2)
+% function [F] = EightPointsAlgorithmN(P1, P2) 
+% Perform matrix F estimation after normalizing points in P1 and P2
 
 % Normalize the points P1 and P2
 [nP1, T1] = normalise2dpts(P1);

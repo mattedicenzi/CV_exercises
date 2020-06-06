@@ -1,4 +1,6 @@
 function [F] = EightPointsAlgorithm(P1, P2)
+% function [F] = EightPointsAlgorithm(P1, P2) 
+% Perform matrix F estimation in P1 and P2
 
 % Construct matrix A
 A = zeros(size(P1,2), 9);
