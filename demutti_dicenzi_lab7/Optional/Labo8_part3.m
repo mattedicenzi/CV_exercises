@@ -1,3 +1,9 @@
+%% Lab 7 -  Image Retrieval using the number of detected matches
+% Demutti Marco  
+% 4389233
+% Dicenzi Matteo 
+% 4342944
+
 %% Clear
 close all;
 clear all;
